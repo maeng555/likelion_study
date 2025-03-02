@@ -2,22 +2,26 @@ package org.example.entity;
 
 public class Menu {
     private final String name;
-    private final String price;
+    private final int price;
+    private int quantity;
     private final String description;
     private final String category;
-    private int amount;
-    public Menu(String name, String price, String description, String category, int amount) {
+
+    public Menu(String name, int price, int quantity ,String description, String category) {
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
         this.description = description;
         this.category = category;
-        this.amount = amount;
+
     }
+
+
 
     public String getName() {
         return name;
     }
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
     public String getDescription() {
@@ -26,19 +30,26 @@ public class Menu {
     public String getCategory() {
         return category;
     }
-    public int getAmount() {
-        return amount;
+    public int getQuantity() {
+        return quantity;
     }
 
     public boolean isSoldOut() {
-        return amount <= 0;
+        return quantity <= 0;
     }
-    public void decreaseAmount(int amount) throws IllegalAccessException {
-        if (this.amount >= amount) {
-            this.amount -= amount;
+    public void decreaseAmount(int quantity) throws IllegalAccessException {
+        if (this.quantity >= quantity) {
+            this.quantity -= quantity;
         }else{
             throw new IllegalAccessException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다.");
         }
+    }
+
+    // toString() 오버라이딩 추가 gpt
+    @Override
+    public String toString() {
+        return String.format("%s | %d원 | 재고: %d개 | %s (%s)",
+                name, price, quantity, description, category);
     }
 
 }
