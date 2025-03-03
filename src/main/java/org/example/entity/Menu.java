@@ -37,7 +37,7 @@ public class Menu {
     public boolean isSoldOut() {
         return quantity <= 0;
     }
-    public void decreaseAmount(int quantity) throws IllegalAccessException {
+    public void decreaseQuantity(int quantity) throws IllegalAccessException {
         if (this.quantity >= quantity) {
             this.quantity -= quantity;
         }else{
