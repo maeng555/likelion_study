@@ -24,4 +24,17 @@ public class Order {
     public int getUserId() {
         return userId;
     }
+    // toString() 메서드 오버라이딩
+    @Override
+    public String toString() {
+        StringBuilder orderDetails = new StringBuilder("주문 내역:\n");
+         items.forEach((productName, quantity) -> {
+            orderDetails.append(productName)
+                    .append(" - ")
+                    .append(quantity)
+                    .append("개\n");
+        });
+        orderDetails.append("총 결제 금액: ").append(totalAmount).append("원");
+        return orderDetails.toString();
+    }
 }

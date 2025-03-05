@@ -20,5 +20,12 @@ public class MenuRepository {
                 .findFirst()
                 .orElse(null);
     }
+    public int getPriceByName(String name) {
+        Menu menu = findByName(name);
+        if (menu != null) {
+            return menu.getPrice();
+        }
+        return 0;  // 메뉴가 없으면 0 반환
+    }
 
 }

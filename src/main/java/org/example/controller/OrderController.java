@@ -1,62 +1,44 @@
 package org.example.controller;
 
 import org.example.entity.Order;
+import org.example.entity.User;
+import org.example.repository.MenuRepository;
 import org.example.service.OrderService;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class OrderController {
     private final OrderService orderService;
-    private final Scanner scanner = new Scanner(System.in);
+    private final MenuRepository menuRepository;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService,MenuRepository menuRepository) {
         this.orderService = orderService;
+        this.menuRepository = menuRepository;
     }
 
-    public void processOrder(int userId) {
-        System.out.println("구매하실 상품명과 수량을 입력해 주세요. (예: [치킨버거-3],[콜라-2])");
-        String input = scanner.nextLine();
 
-        // 입력값을 파싱하여 Map에 저장
-        Map<String, Integer> orderItems = parseOrderInput(input);
-
-        if (orderItems.isEmpty()) {
-            System.out.println("[ERROR] 올바르지 않은 형식으로 입력했습니다.");
-            return;
-        }
-
-        try {
-            Order order = orderService.createOrder(userId, orderItems);
-            System.out.println("✅ 주문이 완료되었습니다! " + order);
-        } catch (IllegalArgumentException | IllegalAccessException e) {
-            System.out.println(e.getMessage());
-        }
+    public Order createOrder(User user, Map<String, Integer> orderItems) throws IllegalAccessException {
+        return orderService.createOrder(orderItems,user,user);
     }
 
-    private Map<String, Integer> parseOrderInput(String input) {
-        Map<String, Integer> orderItems = new HashMap<>();
 
-        try {
-            input = input.replaceAll("[\\[\\]]", ""); // 대괄호 제거
-            String[] items = input.split(",");
+    public void printOrderSummary(Order order) {
+        System.out.println("=====================");
+        System.out.println("상품명   수량   금액");
+        int totalAmount = 0;
 
-            for (String item : items) {
-                String[] parts = item.split("-");
-                if (parts.length != 2) throw new IllegalArgumentException();
-
-                String productName = parts[0].trim();
-                int quantity = Integer.parseInt(parts[1].trim());
-
-                if (quantity <= 0) throw new IllegalArgumentException();
-
-                orderItems.put(productName, quantity);
-            }
-        } catch (Exception e) {
-            return new HashMap<>(); // 잘못된 입력일 경우 빈 Map 반환
+        for (Map.Entry<String, Integer> entry : order.getItems().entrySet()) {
+            String productName = entry.getKey();
+            int quantity = entry.getValue();
+            System.out.println(productName + " " + quantity + " " + (quantity * getMenuPrice(productName)));
+            totalAmount += (quantity * getMenuPrice(productName));
         }
 
-        return orderItems;
+        System.out.println("=====================");
+        System.out.println("총구매액 " + totalAmount);
+        System.out.println("=====================");
+    }
+    private int getMenuPrice(String productName) {
+        return menuRepository.getPriceByName(productName);
     }
 }

@@ -9,7 +9,7 @@ public class User {
     public User(int id, int balance, boolean isAdmin) {
         this.id = id;
         this.balance = balance;
-        this.isAdmin = false;
+        this.isAdmin = isAdmin;
     }
 
     public int getId() {
@@ -27,5 +27,8 @@ public class User {
             throw new IllegalArgumentException("[ERROR] 잔액 부족.");
         }
         balance -= amount;
+    }
+    public void addPay(int amount) {
+        balance += amount; // 관리자 잔액 추가
     }
 }

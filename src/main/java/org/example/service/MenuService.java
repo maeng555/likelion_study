@@ -10,4 +10,9 @@ public class MenuService {
     public void printMenu() {
         menuRepository.getMenus().forEach(System.out::println);
     }
+    public int getPriceByName(String productName) {
+        return menuRepository.getPriceByName(productName);
+    }
+
+
 }

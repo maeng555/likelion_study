@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.entity.Menu;
 import org.example.entity.Order;
+import org.example.entity.User;
 import org.example.repository.MenuRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,8 @@ public class OrderService {
     public OrderService(MenuRepository menuRepository) {
         this.menuRepository = menuRepository;
     }
-    public Order createOrder(int userId, Map<String, Integer> orderItems) throws IllegalAccessException {
+
+    public Order createOrder(Map<String, Integer> orderItems, User user, User admin) throws IllegalAccessException {
         Map<String, Integer> validOrder = new HashMap<>();
         int totalAmount = 0;
 
@@ -33,9 +35,9 @@ public class OrderService {
             totalAmount += menu.getPrice() * quantity;
         }
 
-        return new Order(validOrder, totalAmount, userId);
+        user.pay(totalAmount); // 구매자 잔액 차감
+        admin.addPay(totalAmount); // 관리자 잔액 추가
+
+        return new Order(validOrder, totalAmount, user.getId());
     }
-
-
-
 }
