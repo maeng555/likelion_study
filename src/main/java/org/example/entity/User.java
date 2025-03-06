@@ -3,8 +3,7 @@ package org.example.entity;
 public class User {
     private final int id;
     private int balance;
-    private boolean isAdmin;
-
+    private final boolean isAdmin;
 
     public User(int id, int balance, boolean isAdmin) {
         this.id = id;
@@ -15,21 +14,19 @@ public class User {
     public int getId() {
         return id;
     }
+
     public int getBalance() {
         return balance;
     }
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-    //사용자
+
     public void pay(int amount) {
-        if (balance < amount) {
-            throw new IllegalArgumentException("[ERROR] 잔액 부족.");
+        if (isAdmin) {
+            balance += amount;
+        } else {
+            if (balance < amount) {
+                throw new IllegalArgumentException("[ERROR] 잔액 부족.");
+            }
+            balance -= amount;
         }
-        balance -= amount;
-    }
-    //관리자
-    public void addPay(int amount) {
-        balance += amount; // 관리자 잔액 추가
     }
 }

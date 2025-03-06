@@ -3,7 +3,7 @@ package org.example.entity;
 import java.util.Map;
 
 public class Order {
-    private final Map<String, Integer> items; //상품명,수량
+    private final Map<String, Integer> items;
     private final int totalAmount;
     private final int userId;
 
@@ -17,12 +17,6 @@ public class Order {
         return items;
     }
 
-    public int getTotalAmount() {
-        return totalAmount;
-    }
 
-    public int getUserId() {
-        return userId;
-    }
 
 }

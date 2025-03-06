@@ -35,7 +35,7 @@ public class OrderService {
         }
 
         user.pay(totalAmount); // 구매자 잔액 차감
-        admin.addPay(totalAmount); // 관리자 잔액 추가
+        admin.pay(totalAmount); // 관리자 잔액 추가
 
         return new Order(validOrder, totalAmount, user.getId());
     }
