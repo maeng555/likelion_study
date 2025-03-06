@@ -91,7 +91,7 @@ public class MainController {
         }
 
         System.out.println("안녕하세요 회원 " + currentUser.getId() + "님, 햄버거 가게 입니다.");
-        System.out.println("현재 접속된 관리자는 관리자"+currentAdmin.getId()+"입니다");
+        System.out.println("현재 접속된 관리자는 관리자" + currentAdmin.getId() + "입니다");
 
         while (true) {
             menuService.printMenu(); //메뉴
@@ -161,7 +161,7 @@ public class MainController {
         System.out.println("=====================");
         System.out.println("총구매액 " + totalAmount);
         System.out.println("=====================");
-        System.out.println("판매자: 관리자 " +  currentAdmin.getId() + ", " + currentAdmin.getBalance());
+        System.out.println("판매자: 관리자 " + currentAdmin.getId() + ", " + currentAdmin.getBalance());
         System.out.println("구매자: " + currentUser.getId() + ", " + currentUser.getBalance());
     }
 }

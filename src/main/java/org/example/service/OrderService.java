@@ -24,17 +24,14 @@ public class OrderService {
             int quantity = entry.getValue();
 
             Menu menu = menuRepository.findByName(productName);
-            if (menu == null) {
-                throw new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다.");
-            }
 
             menu.decreaseQuantity(quantity);
             validOrder.put(productName, quantity);
             totalAmount += menu.getPrice() * quantity;
         }
 
-        user.pay(totalAmount); // 구매자 잔액 차감
-        admin.pay(totalAmount); // 관리자 잔액 추가
+        user.pay(totalAmount);
+        admin.pay(totalAmount);
 
         return new Order(validOrder, totalAmount, user.getId());
     }
