@@ -29,7 +29,6 @@ public class OrderService {
                 throw new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다.");
             }
 
-            // 재고 확인 후 주문 가능하면 수량 차감
             menu.decreaseQuantity(quantity);
             validOrder.put(productName, quantity);
             totalAmount += menu.getPrice() * quantity;

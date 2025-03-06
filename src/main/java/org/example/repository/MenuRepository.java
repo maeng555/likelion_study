@@ -12,7 +12,7 @@ public class MenuRepository {
     }
     public List<Menu> getMenus() {
         return menus;
-    } //상품 목록 리스트 getter
+    }
 
     public Menu findByName(String name) {
         return menus.stream()
@@ -25,7 +25,7 @@ public class MenuRepository {
         if (menu != null) {
             return menu.getPrice();
         }
-        return 0;  // 메뉴가 없으면 0 반환
+        return 0;
     }
 
 }

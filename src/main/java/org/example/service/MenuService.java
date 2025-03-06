@@ -8,7 +8,8 @@ public class MenuService {
         this.menuRepository = menuRepository;
     }
     public void printMenu() {
-        menuRepository.getMenus().forEach(System.out::println);
+        menuRepository.getMenus().
+                forEach(System.out::println);
     }
     public int getPriceByName(String productName) {
         return menuRepository.getPriceByName(productName);

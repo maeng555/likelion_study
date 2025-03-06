@@ -16,8 +16,6 @@ public class Menu {
 
     }
 
-
-
     public String getName() {
         return name;
     }
@@ -45,11 +43,12 @@ public class Menu {
         }
     }
 
-    // toString() 오버라이딩 추가 gpt
+    // toString() 오버라이딩 추가 메모리주소값 출력 변환
     @Override
     public String toString() {
         return String.format("%s | %d원 | 재고: %d개 | %s (%s)",
                 name, price, quantity, description, category);
     }
+
 
 }

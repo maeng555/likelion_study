@@ -48,7 +48,7 @@ public class MainController {
                 System.out.println("프로그램을 종료합니다.");
                 break;
             } else {
-                System.out.println("[ERROR] 올바르지 않은 선택입니다.");
+                System.out.println("다시입력");
             }
         }
     }
@@ -60,13 +60,13 @@ public class MainController {
         String adminName = adminData[0].trim();
         int balance = Integer.parseInt(adminData[1].trim());
 
-        currentAdmin = new User(1, balance, true); // 관리자 생성 (ID는 고정으로 1)
-        System.out.println("관리자가 생성되었습니다.");
+        currentAdmin = new User(1, balance, true);
+        System.out.println("관리자가 생성");
     }
 
     private void adminLogin() {
         if (currentAdmin == null) {
-            System.out.println("[ERROR] 관리자 생성이 필요합니다.");
+            System.out.println("[ERROR] 관리자 생성이 필요.");
             return;
         }
 
@@ -81,7 +81,7 @@ public class MainController {
         int balance = Integer.parseInt(userData[1].trim());
 
         currentUser = new User(userId, balance, false); // 회원 생성
-        System.out.println("회원이 생성되었습니다.");
+        System.out.println("회원 생성");
     }
 
     private void userLogin() {
@@ -90,10 +90,11 @@ public class MainController {
             return;
         }
 
-        System.out.println("회원 " + currentUser.getId() + "님, 접속 성공!");
+        System.out.println("안녕하세요 회원 " + currentUser.getId() + "님, 햄버거 가게 입니다.");
+        System.out.println("현재 접속된 관리자는 관리자"+currentAdmin.getId()+"입니다");
 
         while (true) {
-            menuService.printMenu();
+            menuService.printMenu(); //메뉴
             processOrder(); // 주문 처리
             System.out.println("구매하고 싶은 다른 상품이 있나요? (Y/N)");
             String choice = scanner.nextLine().trim().toUpperCase();
@@ -111,7 +112,7 @@ public class MainController {
         Map<String, Integer> orderItems = parseOrderItems(input);
 
         try {
-            // 주문 생성 후 관리자에게 금액을 추가하고, 잔액을 차감
+
             Order order = orderService.createOrder(orderItems, currentUser, currentAdmin);
 
             printOrderSummary(order);
