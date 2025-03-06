@@ -1,7 +1,7 @@
 package org.example.controller;
 
-import org.example.entity.User;
-import org.example.entity.Order;
+import org.example.domain.User;
+import org.example.domain.Order;
 import org.example.repository.MenuRepository;
 import org.example.service.OrderService;
 import org.example.service.MenuService;

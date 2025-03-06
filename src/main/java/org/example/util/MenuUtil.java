@@ -1,6 +1,6 @@
-package org.example.Util;
+package org.example.util;
 
-import org.example.entity.Menu;
+import org.example.domain.Menu;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

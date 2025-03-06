@@ -1,12 +1,11 @@
 package org.example.service;
 
-import org.example.entity.Menu;
-import org.example.entity.Order;
-import org.example.entity.User;
+import org.example.domain.Menu;
+import org.example.domain.Order;
+import org.example.domain.User;
 import org.example.repository.MenuRepository;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class OrderService {

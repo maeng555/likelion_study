@@ -1,4 +1,4 @@
-package org.example.entity;
+package org.example.domain;
 
 import java.util.Map;
 
@@ -16,7 +16,5 @@ public class Order {
     public Map<String, Integer> getItems() {
         return items;
     }
-
-
 
 }

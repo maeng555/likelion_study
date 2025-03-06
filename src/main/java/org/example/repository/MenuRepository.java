@@ -1,7 +1,7 @@
 package org.example.repository;
 
-import org.example.Util.MenuUtil;
-import org.example.entity.Menu;
+import org.example.util.MenuUtil;
+import org.example.domain.Menu;
 
 import java.util.List;
 
