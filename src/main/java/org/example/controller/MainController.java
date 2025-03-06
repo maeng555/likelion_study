@@ -57,10 +57,10 @@ public class MainController {
         System.out.println("관리자의 정보를 입력해주세요 (ex: 관리자1, 30000)");
         String input = scanner.nextLine();
         String[] adminData = input.split(",");
-        String adminName = adminData[0].trim();
+        //String adminName = adminData[0].trim();
         int balance = Integer.parseInt(adminData[1].trim());
 
-        currentAdmin = new User(1, balance, true);
+        currentAdmin = new User(balance, true);
         System.out.println("관리자가 생성");
     }
 
