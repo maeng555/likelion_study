@@ -4,11 +4,14 @@ import org.example.domain.User;
 import org.example.service.MenuService;
 import org.example.service.OrderService;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class UserController {
     private User currentAdmin;
     private User currentUser;
+    private final Map<Integer, User> users = new HashMap<>();
     private final MenuService menuService;
     private final OrderController orderController;
     private final Scanner scanner = new Scanner(System.in);
@@ -43,11 +46,22 @@ public class UserController {
         int userId = Integer.parseInt(userData[0].trim());
         int balance = Integer.parseInt(userData[1].trim());
 
-        currentUser = new User(userId, balance, false);
+        User user = new User(userId, balance, false);
+        users.put(userId, user);
         System.out.println("회원이 생성되었습니다.");
     }
 
     public void userLogin() {
+        System.out.println("사용자 고유 ID를 입력해주세요: ");
+        int userId = Integer.parseInt(scanner.nextLine().trim());
+
+        if (!users.containsKey(userId)) {
+            System.out.println("[ERROR] 존재하지 않는 사용자입니다.");
+            return;
+        }
+
+        currentUser = users.get(userId);
+
         if (currentUser == null) {
             System.out.println("[ERROR] 회원이 생성되지 않았습니다.");
             return;

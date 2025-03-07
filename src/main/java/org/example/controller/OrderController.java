@@ -20,13 +20,18 @@ public class OrderController {
     }
 
     public void processOrder(User currentUser, User currentAdmin) {
-        System.out.println("구매하실 상품명과 수량을 입력해 주세요. (예: [치킨버거-3],[불고기버거세트-2])");
-        String input = scanner.nextLine();
+        try {
+            System.out.println("구매하실 상품명과 수량을 입력해 주세요. (예: [치킨버거-3],[불고기버거세트-2])");
+            String input = scanner.nextLine();
 
-        Map<String, Integer> orderItems = parseOrderItems(input);
-        Order order = orderService.createOrder(orderItems, currentUser, currentAdmin);
-        printOrderSummary(order, currentUser, currentAdmin);
+            Map<String, Integer> orderItems = parseOrderItems(input);
+            Order order = orderService.createOrder(orderItems, currentUser, currentAdmin);
+            printOrderSummary(order, currentUser, currentAdmin);
 
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());  // 예외 메시지 출력
+            System.out.println("다시 시도해 주세요.");
+        }
     }
 
     private Map<String, Integer> parseOrderItems(String input) {
