@@ -15,7 +15,7 @@ public class OrderService {
         this.menuRepository = menuRepository;
     }
 
-    public Order createOrder(Map<String, Integer> orderItems, User user, User admin) throws IllegalAccessException {
+    public Order createOrder(Map<String, Integer> orderItems, User user, User admin) {
         Map<String, Integer> validOrder = new HashMap<>();
         int totalAmount = 0;
 

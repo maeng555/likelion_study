@@ -24,11 +24,11 @@ public class Menu {
         return price;
     }
 
-    public void decreaseQuantity(int quantity) throws IllegalAccessException {
+    public void decreaseQuantity(int quantity) throws IllegalArgumentException {
         if (this.quantity >= quantity) {
             this.quantity -= quantity;
         } else {
-            throw new IllegalAccessException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다.");
+            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다.");
         }
     }
 
