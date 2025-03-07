@@ -80,7 +80,7 @@ public class MainController {
         int userId = Integer.parseInt(userData[0].trim());
         int balance = Integer.parseInt(userData[1].trim());
 
-        currentUser = new User(userId, balance, false); // 회원 생성
+        currentUser = new User(userId, balance, false);
         System.out.println("회원 생성");
     }
 
@@ -94,8 +94,8 @@ public class MainController {
         System.out.println("현재 접속된 관리자는 관리자" + currentAdmin.getId() + "입니다");
 
         while (true) {
-            menuService.printMenu(); //메뉴
-            processOrder(); // 주문 처리
+            menuService.printMenu();
+            processOrder();
             System.out.println("구매하고 싶은 다른 상품이 있나요? (Y/N)");
             String choice = scanner.nextLine().trim().toUpperCase();
 
@@ -123,23 +123,27 @@ public class MainController {
     }
 
     private Map<String, Integer> parseOrderItems(String input) {
-        // 입력값을 파싱하여 Map 형태로 변환
+
         Map<String, Integer> orderItems = new HashMap<>();
-        String[] items = input.split("\\],\\["); // 각 항목을 [로 구분 (], [로 나누기)
+        String[] items = input.split("\\],\\[");
 
-        // 앞뒤 괄호 제거
-        if (items[0].startsWith("[")) {
-            items[0] = items[0].substring(1);
+        int firstItem = 0;
+        int lastItem = items.length - 1;
+        if (items[firstItem].startsWith("[")) {
+            items[firstItem] = items[firstItem].substring(1);
         }
-        if (items[items.length - 1].endsWith("]")) {
-            items[items.length - 1] = items[items.length - 1].substring(0, items[items.length - 1].length() - 1);
+        if (items[lastItem].endsWith("]")) {
+            items[lastItem] = items[lastItem].substring(0, items[lastItem].length() - 1);
         }
 
-        // 각 항목 파싱
+
         for (String item : items) {
-            String[] itemData = item.split("-"); // 상품명과 수량 구분
+            String[] itemData = item.split("-");
+            if (itemData.length != 2) {
+                throw new IllegalArgumentException("[ERROR] 올바른 형식이 아닙니다." + item);
+            }
             String productName = itemData[0].trim();
-            int quantity = Integer.parseInt(itemData[1].trim()); // 수량 파싱
+            int quantity = Integer.parseInt(itemData[1].trim());
             orderItems.put(productName, quantity);
         }
         return orderItems;
@@ -153,7 +157,7 @@ public class MainController {
         for (Map.Entry<String, Integer> entry : order.getItems().entrySet()) {
             String productName = entry.getKey();
             int quantity = entry.getValue();
-            int price = menuService.getPriceByName(productName); // 가격 조회 수정
+            int price = menuService.getPriceByName(productName);
             System.out.println(productName + " " + quantity + " " + (quantity * price));
             totalAmount += (quantity * price);
         }
