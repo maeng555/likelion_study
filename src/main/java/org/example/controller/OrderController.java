@@ -25,11 +25,17 @@ public class OrderController {
             String input = scanner.nextLine();
 
             Map<String, Integer> orderItems = parseOrderItems(input);
+
+
+            for (String productName : orderItems.keySet()) {
+                menuService.handleSetMenuItems(productName, orderItems.get(productName));
+            }
+
             Order order = orderService.createOrder(orderItems, currentUser, currentAdmin);
             printOrderSummary(order, currentUser, currentAdmin);
 
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());  // 예외 메시지 출력
+            System.out.println(e.getMessage());
             System.out.println("다시 시도해 주세요.");
         }
     }
