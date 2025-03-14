@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class UserController {
     private User currentAdmin;
-    private User currentUser;
     private final Map<Integer, User> users = new HashMap<>();
     private final MenuService menuService;
     private final OrderController orderController;
@@ -60,7 +59,7 @@ public class UserController {
             return;
         }
 
-        currentUser = users.get(userId);
+        User currentUser = users.get(userId);
 
         if (currentUser == null) {
             System.out.println("[ERROR] 회원이 생성되지 않았습니다.");

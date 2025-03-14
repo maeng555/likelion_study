@@ -8,7 +8,7 @@ public class User {
     private final boolean isAdmin;
 
     public User(int balance, boolean isAdmin) {
-        this.id = isAdmin ? idCounter++ : -1;  // 관리자만 자동 증가
+        this.id = isAdmin ? idCounter++ : -1;
         this.balance = balance;
         this.isAdmin = isAdmin;
     }
