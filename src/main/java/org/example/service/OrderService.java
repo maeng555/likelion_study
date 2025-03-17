@@ -6,13 +6,16 @@ import org.example.domain.User;
 import org.example.repository.MenuRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OrderService {
     private final MenuRepository menuRepository;
+    private List<Order> orderHistory;
 
     public OrderService(MenuRepository menuRepository) {
         this.menuRepository = menuRepository;
+
     }
 
     public Order createOrder(Map<String, Integer> orderItems, User user, User admin) {

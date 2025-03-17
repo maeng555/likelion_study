@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.domain.Menu;
 import org.example.repository.MenuRepository;
+import org.example.util.MenuUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +41,7 @@ public class MenuService {
             if (!reduceSideStock(quantity)) return;
 
             askForDrinkQuantity(quantity);
+            MenuUtil.saveProductsToFile(menuRepository.getMenus());
         }
     }
 
