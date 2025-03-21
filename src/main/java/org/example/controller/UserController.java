@@ -3,10 +3,9 @@ package org.example.controller;
 import org.example.domain.User;
 import org.example.service.MenuService;
 import org.example.service.OrderService;
+import org.example.util.DataStorageUtil;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserController {
     private User currentAdmin;
@@ -18,6 +17,12 @@ public class UserController {
     public UserController(MenuService menuService, OrderService orderService) {
         this.menuService = menuService;
         this.orderController = new OrderController(orderService, menuService);
+
+        // users Map을 DataStorageUtil을 사용해 로드
+        Map<Integer, User> savedUsers = DataStorageUtil.loadUserDataAsMap();
+        if (savedUsers != null) {
+            users.putAll(savedUsers);  // Map에 데이터를 추가
+        }
     }
 
     public void createAdmin() {
@@ -28,6 +33,8 @@ public class UserController {
 
         currentAdmin = new User(balance, true);
         System.out.println("관리자가 생성되었습니다.");
+        users.put(currentAdmin.getId(), currentAdmin);
+        DataStorageUtil.saveUserData(new ArrayList<>(users.values())); // Map을 List로 변환하여 저장
     }
 
     public void adminLogin() {
@@ -48,6 +55,7 @@ public class UserController {
         User user = new User(userId, balance, false);
         users.put(userId, user);
         System.out.println("회원이 생성되었습니다.");
+        DataStorageUtil.saveUserData(new ArrayList<>(users.values())); // Map을 List로 변환하여 저장
     }
 
     public void userLogin() {
